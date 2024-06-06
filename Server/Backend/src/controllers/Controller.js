@@ -1,13 +1,24 @@
-import { json } from 'express'
-import Product from '~/models/Schema'
+import Product from "~/models/Schema"
+import { StatusCodes } from "http-status-codes"
+
 exports.handleCreateProfile = async (req, res) => {
-  const product = await Product.create(req.body)
-  res.status(201).json({
-    status: 'Success',
-    data: {
-      product
-    }
+  const product = await Product.create(req.body, {
+    new: true,
+    runValidators: true
   })
+  try {
+    res.status(StatusCodes.CREATED).json({
+      status: "Success",
+      data: {
+        product
+      }
+    })
+  } catch (error) {
+    res.status(StatusCodes.NOT_FOUND).json({
+      status: "Fail",
+      message: error.message
+    })
+  }
 }
 
 exports.handleGetAllProfile = async (req, res) => {
@@ -20,16 +31,16 @@ exports.handleGetAllProfile = async (req, res) => {
     )
     const queryObj = JSON.parse(queryStr)
     const products = await Product.find(queryObj)
-    res.status(200).json({
-      status: 'Success',
+    res.status(StatusCodes.OK).json({
+      status: "Success",
       lengthProduct: products.length,
       data: {
         products
       }
     })
   } catch (error) {
-    res.status(404).json({
-      status: 'Fail',
+    res.status(StatusCodes.NOT_FOUND).json({
+      status: "Fail",
       message: error.message
     })
   }
@@ -37,15 +48,15 @@ exports.handleGetAllProfile = async (req, res) => {
 exports.handleGetProfile = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
-    res.status(200).json({
-      status: 'Success',
+    res.status(StatusCodes.OK).json({
+      status: "Success",
       data: {
         product
       }
     })
   } catch (error) {
-    res.status(404).json({
-      status: 'Fail',
+    res.status(StatusCodes.NOT_FOUND).json({
+      status: "Fail",
       message: error.message
     })
   }
@@ -56,15 +67,15 @@ exports.handlePatchProfile = async (req, res) => {
       new: true,
       runValidators: true
     })
-    res.status(201).json({
-      status:'Success',
+    res.status(StatusCodes.CREATED).json({
+      status: "Success",
       data: {
         product
       }
     })
   } catch (error) {
-    res.status(404).json({
-      status: 'Fail',
+    res.status(StatusCodes.NOT_FOUND).json({
+      status: "Fail",
       message: error.message
     })
   }
@@ -72,15 +83,15 @@ exports.handlePatchProfile = async (req, res) => {
 exports.handleDeleteProfile = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id)
-    res.status(204).json({
-      status: 'Success',
+    res.status(StatusCodes.NO_CONTENT).json({
+      status: "Success",
       data: {
         product
       }
     })
   } catch (error) {
-    res.status(404).json({
-      status: 'Fail',
+    res.status(StatusCodes.NOT_FOUND).json({
+      status: "Fail",
       massage: error.message
     })
   }

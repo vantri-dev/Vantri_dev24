@@ -1,13 +1,12 @@
-
-import express from 'express'
-import controller from '~/controllers/Controller'
+import express from "express"
+import controller from "~/controllers/Controller"
 const Routers = express.Router()
 
-Routers.route('/')
+Routers.route("/")
   .get(controller.handleGetAllProfile)
   .post(controller.handleCreateProfile)
-Routers.route('/:id')
+Routers.route("/:id")
   .get(controller.handleGetProfile)
   .delete(controller.handleDeleteProfile)
   .patch(controller.handlePatchProfile)
-module.exports = Routers
+export default Routers

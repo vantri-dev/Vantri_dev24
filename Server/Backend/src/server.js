@@ -5,12 +5,12 @@
 import mongoose from "mongoose"
 import exitHook from 'async-exit-hook'
 import app from '~/index.js'
+import { env } from "./config/environment"
 const hostname = "localhost"
 const port = 3000
 // eslint-disable-next-line semi
-require("dotenv").config();
 mongoose
-  .connect(process.env.DB_CONNECT, {
+  .connect(env.DB_CONNECT, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
