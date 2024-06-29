@@ -1,64 +1,73 @@
-
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+// import { useAuth } from "../context/Context";
+import { apiProduct } from "../callApi";
 export default function Product() {
   const [products, setProducts] = useState([]);
   const [showProduct, setShowProduct] = useState(15);
-
+  const [isLoading, setIsLoading] = useState(null);
+  // const { isLoadingData } = useAuth();
   useEffect(() => {
-    const dataProducts = async () => {
-      const repAPi = await fetch(
-        "https://jsonplaceholder.typicode.com/comments"
-      );
-      const data = await repAPi.json();
-      setProducts(data);
+    setIsLoading(true);
+    const fetchData = async () => {
+      apiProduct().then((data) => {
+        if (!data) {
+          setProducts([]);
+        } else {
+          setProducts(data);
+        }
+      });
+      setIsLoading(false);
     };
-    dataProducts();
+    fetchData();
   }, []);
+
   const handleShowProduct = () => {
     setShowProduct((prev) => prev + 15);
   };
-
   return (
     <>
       <div className="w-full  grid  grid-cols-5 gap-2 mt-[13px] mb-[13px]">
         {products.slice(0, showProduct).map((product, index) => {
-         
           return (
             <div key={index} className=" col-span-1  w-full max-h-[520px]">
-              <Link to={`/productpage/${product.id}`}>
+              <Link to={`/productpage/${product._id}`}>
                 <div className=" border rounded  bg-white   cursor-pointer transition-all ease-out translate-y-0 hover:-translate-y-[3px] hover:border-violet">
                   <div className=" w-full  ">
                     <img
                       className="w-[170px] h-[190px] flex  m-auto border"
                       alt=""
-                      src="https://salt.tikicdn.com/cache/280x280/ts/product/e2/79/3a/99fb3f8dd32c331e6535e5aae5d51f98.jpg.webp"
+                      src={product.image[0]}
                     />
                   </div>
                   <div className=" w-full mt-2 px-2 ">
                     <p className="  line-clamp-2   text-textword font-medium text-[0.95rem]  ">
-                      {product.name}
+                      {product.nameProduct}
                     </p>
                   </div>
                   <div className="w-full px-2 py-2 ">
                     <div className="">
                       <span className="text-[1.09rem] text-violet font-bold">
-                        {product.id}.000đ
+                        {product.price.toLocaleString("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                          minimumFractionDigits: 0,
+                        })}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
                         <p className=" font-medium text-[0.85rem] text-[#cbd5e1] line-through">
-                          145.000đ
+                          21.000.000đ
                         </p>
                         <p className=" font-medium text-[0.85rem] text-violet pl-1">
-                          -39%
+                          -19%
                         </p>
                       </div>
                       <p className="text-[0.8rem] text-[#94a3b8] pl-1 ">
-                        Đã bán 2.2k
+                        Đã bán {product.rating.selledRating}k
                       </p>
                     </div>
                   </div>

@@ -4,7 +4,9 @@ import { BiLogoFacebookCircle, BiLogoInstagramAlt } from "react-icons/bi";
 import { PiLinkedinLogoFill } from "react-icons/pi";
 
 import { Link } from "react-router-dom";
-export default function Footer() {
+ 
+export default  function Footer() {
+ 
   const customerCare = [
     "   Trung tâm trợ giúp",
     " Shopteach Mall",

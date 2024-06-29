@@ -13,8 +13,10 @@ import { Link } from "react-router-dom";
 import Outstandingprogram from "./Outstandingprogram";
 export default function PracticalShipping() {
   return (
-  
-    <div className="  bg-orange-200    relative   min-h-[7000px] w-full">
+    <div
+      className="  bg-gradient-to-br from-orange-400 to-yellow-400 
+            text-gray-900 rounded-lg shadow-m    relative   min-h-[7000px] w-full"
+    >
       <div className=" flex items-center ml-[158px] py-2">
         <Link to="/">
           <span className="text-[0.9rem] text-slate-500">Trang chủ</span>
@@ -31,7 +33,10 @@ export default function PracticalShipping() {
           src="https://thuhuongcake.vn/files/assets/mien_phi_van_chuyen_khi_mua_banh_sinh_nhat_tai_thu_huong_bakery.jpg"
         />
       </div>
-      <div className="flex  justify-center  sticky bg-orange-200   top-[80px]   z-50   mb-10 ">
+      <div
+        className="flex  justify-center  sticky bg-gradient-to-br from-orange-400 to-yellow-400 
+            text-gray-900 rounded-lg shadow-m   top-[80px]   z-50   mb-10 "
+      >
         <ul className="flex items-center mt-7  ">
           <li className="flex items-center  flex-col   w-[60px] mx-14  rounded-full cursor-pointer">
             <a href="#freeshipping">
@@ -48,7 +53,7 @@ export default function PracticalShipping() {
               <TiFlashOutline className="text-[6rem] text-white   bg-teal-200 rounded-full w-[75px] h-[75px] px-[10px] py-[10px]" />
               <div className="text-center ">
                 <span className="text-textword text-[0.95rem]  font-sans font-medium flex-wrap ">
-               Mùa hè siêu sale
+                  Mùa hè siêu sale
                 </span>
               </div>
             </a>
@@ -58,7 +63,7 @@ export default function PracticalShipping() {
               <BiLogoShopify className="text-[6rem] text-white   bg-teal-200 rounded-full w-[75px] h-[75px] px-[10px] py-[10px]" />
               <div className=" text-center">
                 <span className="text-textword text-[0.95rem]  font-sans font-medium flex-wrap ">
-               Deal xịn mỗi ngày
+                  Deal xịn mỗi ngày
                 </span>
               </div>
             </a>
@@ -68,14 +73,11 @@ export default function PracticalShipping() {
               <PiHandbagFill className=" ml-[10px] text-[6rem] text-white   bg-teal-200 rounded-full w-[75px] h-[75px] px-[10px] py-[10px]" />
               <div className=" w-[100px] text-center">
                 <span className="text-textword text-[0.95rem]  font-sans font-medium  ">
-              Chương trình  nổi bật
+                  Chương trình ưu đãi
                 </span>
               </div>
             </a>
           </li>
-        
-
-        
         </ul>
       </div>
       <div className="z-0  flex justify-center">

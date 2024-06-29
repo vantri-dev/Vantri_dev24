@@ -1,24 +1,24 @@
 {
-  "short_name": "React App",
+  "short_name": "Shop Teach",
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "../src/components/img/logo_transparent.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "../src/components/img/logo_transparent.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "../src/components/img/logo_transparent.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "../src/components/img/logo_transparent.png",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

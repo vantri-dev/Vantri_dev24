@@ -62,11 +62,7 @@ export default function DealShipping() {
         </li>
       </ul>
 
-     <img
-      className="w-[1000px] mt-[110px]  object-contain"
-        alt=""
-        src="https://media3.scdn.vn/img4/2023/06_14/uewABiqTrl0KWmj3Ga3v.png"
-      />
+     
     </>
   );
 }

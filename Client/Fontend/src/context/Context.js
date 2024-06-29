@@ -47,6 +47,8 @@ export function Context({ children }) {
 const [quantityProduct, setQuantityProduct] = useState(0)
 //Check Buy Product
 const [checkBuyId,setCheckBuyId]=useState(false);
+//Is Loading
+const [isLoading,setIsLoading]=useState(null)
 
   function signUp(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
@@ -83,7 +85,7 @@ const [checkBuyId,setCheckBuyId]=useState(false);
   }, []);
   //CountDown
   function CountDown() {
-    const time = "Mar 09 2024 23:59:59";
+    const time = "Mar 09 2025 23:59:59";
     return time;
   }
 
@@ -137,7 +139,10 @@ const [checkBuyId,setCheckBuyId]=useState(false);
  function checkBuyProductId(check){
 setCheckBuyId(check)
  }
- console.log(checkOut)
+function isLoadingData(bool){
+setIsLoading(bool)
+ }
+
   const value = {
     //Auth
     currentUser,
@@ -185,7 +190,10 @@ setCheckBuyId(check)
     quantityProduct,
     //Check Buy
     checkBuyProductId,
-    checkBuyId
+    checkBuyId,
+    //Loading Data
+    isLoadingData,
+    isLoading,
   };
   return (
     <AuthProvider.Provider value={value}>

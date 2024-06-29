@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import Slider from "../../Slider/Slider";
 import Translation from "./Translation";
 import FlashSale from "./FlashSale";
-import Product from "./Product/Product";
+import Product from "../../../Product/Product";
 
 import Trademark from "./trademark/trademark";
 import BackTop from "../../BackTop/BackTop";
@@ -94,75 +94,77 @@ function Home() {
     },
   ];
   return (
-    <div className="  w-full pt-[10px] flex bg-gray-100 pr-[100px]  pl-[80px] ">
-      <div className=" w-[22%]  flex-col  flex  items-center  ">
-        <div className="w-[85%] border rounded m-h-[90%] ml-[14px] cursor-pointer bg-white  shadow-md h-[556px]  ">
-          <div className="pl-5 py-2">
-            <span className="text-[1rem] font-semibold text-slate-600">
-              Danh mục
-            </span>
-          </div>
-          <ul className=" flex  items-start flex-col   w-full overflow-y-auto  ">
-            {listProduct.map((product, index) => {
-              return (
-                <Link to={product.pathPage} className="w-full" key={index}>
-                  <li className="py-[12px]  pl-8 hover:bg-slate-100 w-full rounded-lg flex items-center ">
-                    <img
-                      className="w-[32px] h-[32px]  rounded-lg text-[1.3rem] mr-3"
-                      src={product.pathImg}
-                      alt=""
-                    />
-
-                    <span className="text-[1rem] text-textword pt-[3px]">
-                      {product.name}
-                    </span>
-                  </li>
-                </Link>
-              );
-            })}
-          </ul>
-        </div>
-        <div className="w-[85%]  border rounded ml-[14px] m-h-[90%]  cursor-pointer bg-white  shadow-md mt-[13px] h-[360px]">
-          <div className="pl-5 py-2">
-            <span className="text-[1rem] font-semibold text-slate-600">
-              Nổi bật
-            </span>
-          </div>
-          <ul className=" flex  items-start flex-col   w-full overflow-y-auto ">
-            {listOutstand.map((product, index) => {
-              return (
-                <Link to={product.path} className="w-full" key={index}>
-                  <li className="py-[10px]  pl-8 hover:bg-slate-100 w-full rounded-lg flex items-center ">
-                    <img
-                      className="w-[32px] h-[32px]  rounded-lg text-[1.3rem] mr-3"
-                      src={product.pathImg}
-                      alt=""
-                    />
-
-                    <span className="text-[1rem] text-textword pt-[3px]">
-                      {product.name}
-                    </span>
-                  </li>
-                </Link>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
-      <div className=" w-[82%]  ">
-        <div className="w-full h-80">
-          <Slider />
-        </div>
-        <Translation />
-        <FlashSale />
-        <Trademark/>
+    <>
+ 
+      <div className="  w-full pt-[10px] flex bg-gray-100 pr-[100px]  pl-[80px] ">
         
-          <Product/>
-      
-          <BackTop/>
-       
+        <div className=" w-[22%]  flex-col  flex  items-center  ">
+          <div className="w-[85%] border rounded m-h-[90%] ml-[14px] cursor-pointer bg-white  shadow-md h-[556px]  ">
+            <div className="pl-5 py-2">
+              <span className="text-[1rem] font-semibold text-slate-600">
+                Danh mục
+              </span>
+            </div>
+            <ul className=" flex  items-start flex-col   w-full overflow-y-auto  ">
+              {listProduct.map((product, index) => {
+                return (
+                  <Link to={product.pathPage} className="w-full" key={index}>
+                    <li className="py-[12px]  pl-8 hover:bg-slate-100 w-full rounded-lg flex items-center ">
+                      <img
+                        className="w-[32px] h-[32px]  rounded-lg text-[1.3rem] mr-3"
+                        src={product.pathImg}
+                        alt=""
+                      />
+
+                      <span className="text-[1rem] text-textword pt-[3px]">
+                        {product.name}
+                      </span>
+                    </li>
+                  </Link>
+                );
+              })}
+            </ul>
+          </div>
+          <div className="w-[85%]  border rounded ml-[14px] m-h-[90%]  cursor-pointer bg-white  shadow-md mt-[13px] h-[360px]">
+            <div className="pl-5 py-2">
+              <span className="text-[1rem] font-semibold text-slate-600">
+                Nổi bật
+              </span>
+            </div>
+            <ul className=" flex  items-start flex-col   w-full overflow-y-auto ">
+              {listOutstand.map((product, index) => {
+                return (
+                  <Link to={product.path} className="w-full" key={index}>
+                    <li className="py-[10px]  pl-8 hover:bg-slate-100 w-full rounded-lg flex items-center ">
+                      <img
+                        className="w-[32px] h-[32px]  rounded-lg text-[1.3rem] mr-3"
+                        src={product.pathImg}
+                        alt=""
+                      />
+
+                      <span className="text-[1rem] text-textword pt-[3px]">
+                        {product.name}
+                      </span>
+                    </li>
+                  </Link>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+        <div className=" w-[82%]  ">
+          <div className="w-full h-80">
+            <Slider />
+          </div>
+          <Translation />
+          <FlashSale />
+          <Trademark />
+
+          <Product />
+          <BackTop />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 export default Home;

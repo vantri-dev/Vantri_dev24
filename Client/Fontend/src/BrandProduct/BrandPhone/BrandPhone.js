@@ -2,8 +2,8 @@ import React from 'react'
 
 import {  BsChevronRight } from "react-icons/bs";
 import BrandStore from './BrandStore'
-import BrandPhoneProudct from './BrandPhoneProudct/BrandPhoneHome';
- import { Link } from 'react-router-dom'
+import BrandPhoneProudct from './BrandPhoneProudct/BrandProduct';
+import { Link } from 'react-router-dom'
 export default function BrandPhone() {
   return (
     <div className='w-full pt-[10px] pr-[100px]  pl-[90px] grid gap-3  bg-gray-100  '>

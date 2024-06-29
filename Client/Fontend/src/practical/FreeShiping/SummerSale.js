@@ -3,15 +3,6 @@ import React from "react";
 export default function SummerSale() {
   return (
     <>
-      <div className="flex   justify-center">
-        <button className=" px-[180px] py-6  rounded-[50px] bg-cyan-400 shadow-lg shadow-cyan-400/70  border border-[#d3e2ec]">
-          <span className=" uppercase  text-[2rem]  font-sans text-white ">
-           Mùa hè siêu sale
-          </span>
-        </button>
-      </div>
-
-  
       <img
       className="w-[1000px] mt-10 h-auto"
         alt=""

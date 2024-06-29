@@ -44,10 +44,10 @@ export default function Offer() {
             })}
           </nav>
         </div>
-        <ul className=" bg-slate-100">
+        <ul className=" bg-slate-100 mb-3">
           <li className={tabs === 0 ? "block w-full   " : "hidden"}>
             <div className="grid grid-cols-2 gap-3 mt-3 px-3">
-              {dataVoucher.map((voucher, index) => {
+              {dataVoucher.slice(0, 30).map((voucher, index) => {
                 return (
                   <div key={index} className=" col-span-1  relative">
                     <div className=" col-span-1 grid grid-cols-3  bg-white border shadow-md w-full h-[120px] rounded ">
@@ -61,7 +61,8 @@ export default function Offer() {
                       <div className="col-span-2 ">
                         <div className="grid grid-cols-3 py-2  px-1">
                           <span className=" col-span-2 text-[1.05rem] text-textword ">
-                            Giảm {(voucher.id * 10)}% cho đơn tối thiểu {voucher.id.toFixed(1)}k
+                            Giảm {voucher.id * 10}% cho đơn tối thiểu{" "}
+                            {voucher.id.toFixed(1)}k
                           </span>
                           <Link
                             to="/"

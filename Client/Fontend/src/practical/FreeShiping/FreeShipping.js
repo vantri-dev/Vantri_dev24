@@ -4,13 +4,7 @@ import { Link } from 'react-router-dom';
 export default function FreeShipping() {
   return (
     <>
-       <div className="flex items-center justify-center">
-              <button className=" px-[180px] py-6  rounded-[50px] bg-cyan-400 shadow-lg shadow-cyan-400/70  border border-[#d3e2ec]">
-                <span className=" uppercase  text-[2rem]  font-sans text-white ">
-                  Miễn phí vận chuyển
-                </span>
-              </button>
-            </div>
+
             <div className="flex justify-center mt-10">
               <img
                 className="w-[1000px] object-contain"
