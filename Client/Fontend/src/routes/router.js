@@ -14,78 +14,85 @@ import ProductPage from "../ProductPage/ProductPage"
 import ProductFilterPhone from "../components/pages/ProductFilterSearch/ProductPhone/ProductFilterPhone"
 import CheckOut from "../CheckOut/CheckOut"
 import InforCheckOut from "../CheckOut/InforCheckOut"
-const publicRouter=[
-    {
-        path:'/',
-        component:Home
-    },
-    {
-        path:'/cart',
-        component:CartShopping
-    },
-    {
-        path:'/signIn',
-        component:SignIn,
-        layout:null
-    },
-    {
-        path:'/signUp',
-        component:SignUp,
-        layout:null
-    },
-    {
-        path:'/forgotPassword',
-        component:ForgotPassword,
-        layout:null
-    },
-    {
-        path:'/profile',
-        component:Profile,
-    },
-    {
-        path:'/order',
-        component:Order,
-    },
-    {
-        path:'/productSmartPhone',
-        component:SmartPhoneProduct
-    },
-    {
-        path:'/brandphone',
-        component:BrandPhone
-    },
-    {
-        path:'/practicalShipping',
-        component:PracticalShipping
-    },
-    {
-        path:'/flashsale',
-        component:FlashSale
-    },
-    {
-        path:'/outstanding',
-        component:Outstanding
-    },
-    {
-        path:'/productpage/:idProduct',
-        component:ProductPage
-    },
-    {
-        path:'/productFilterPhone',
-        component:ProductFilterPhone
-    },
-    {
-        path:'/checkOut',
-        component:CheckOut
-    },
-    {
-        path:'/inforCheckOut',
-        component:InforCheckOut
-    },
-   
- 
-
-]
+import BookProduct from "../components/pages/CategoryProduct/BookProduct/BookProduct"
+import HouseholdElectricity from "../components/pages/CategoryProduct/HouseholdElectricity/HouseholdElectricity"
+const publicRouter = [
+  {
+    path: "/",
+    component: Home,
+  },
+  {
+    path: "/cart",
+    component: CartShopping,
+  },
+  {
+    path: "/signIn",
+    component: SignIn,
+    layout: null,
+  },
+  {
+    path: "/signUp",
+    component: SignUp,
+    layout: null,
+  },
+  {
+    path: "/forgotPassword",
+    component: ForgotPassword,
+    layout: null,
+  },
+  {
+    path: "/profile",
+    component: Profile,
+  },
+  {
+    path: "/order",
+    component: Order,
+  },
+  {
+    path: "/productSmartPhone",
+    component: SmartPhoneProduct,
+  },
+  {
+    path: "/brandphone",
+    component: BrandPhone,
+  },
+  {
+    path: "/practicalShipping",
+    component: PracticalShipping,
+  },
+  {
+    path: "/flashsale",
+    component: FlashSale,
+  },
+  {
+    path: "/outstanding",
+    component: Outstanding,
+  },
+  {
+    path: "/productpage/:idProduct",
+    component: ProductPage,
+  },
+  {
+    path: "/productFilterPhone",
+    component: ProductFilterPhone,
+  },
+  {
+    path: "/checkOut",
+    component: CheckOut,
+  },
+  {
+    path: "/inforCheckOut",
+    component: InforCheckOut,
+  },
+  {
+    path: "/bookProduct",
+    component: BookProduct,
+  },
+  {
+    path: "/householdElectricity",
+    component: HouseholdElectricity,
+  }
+];
 
 export {
     publicRouter

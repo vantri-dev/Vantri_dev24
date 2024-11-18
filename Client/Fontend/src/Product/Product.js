@@ -2,15 +2,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import { useAuth } from "../context/Context";
 import { apiProduct } from "../callApi";
 export default function Product() {
   const [products, setProducts] = useState([]);
   const [showProduct, setShowProduct] = useState(15);
-  const [isLoading, setIsLoading] = useState(null);
-  // const { isLoadingData } = useAuth();
   useEffect(() => {
-    setIsLoading(true);
     const fetchData = async () => {
       apiProduct().then((data) => {
         if (!data) {
@@ -19,7 +15,6 @@ export default function Product() {
           setProducts(data);
         }
       });
-      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -27,6 +22,12 @@ export default function Product() {
   const handleShowProduct = () => {
     setShowProduct((prev) => prev + 15);
   };
+
+  const handleDiscountPercent = (price) => {
+ let findBeforeDiscount = price / (1 - 5 / 100);
+ return findBeforeDiscount
+  };
+
   return (
     <>
       <div className="w-full  grid  grid-cols-5 gap-2 mt-[13px] mb-[13px]">
@@ -37,9 +38,9 @@ export default function Product() {
                 <div className=" border rounded  bg-white   cursor-pointer transition-all ease-out translate-y-0 hover:-translate-y-[3px] hover:border-violet">
                   <div className=" w-full  ">
                     <img
-                      className="w-[170px] h-[190px] flex  m-auto border"
+                      className="w-[170px] h-[190px] flex  m-auto border object-contain"
                       alt=""
-                      src={product.image[0]}
+                      src={product.image[0].image1}
                     />
                   </div>
                   <div className=" w-full mt-2 px-2 ">
@@ -60,10 +61,17 @@ export default function Product() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
                         <p className=" font-medium text-[0.85rem] text-[#cbd5e1] line-through">
-                          21.000.000đ
+                          {handleDiscountPercent(product.price).toLocaleString(
+                            "vi-VN",
+                            {
+                              style: "currency",
+                              currency: "VND",
+                              minimumFractionDigits: 0,
+                            }
+                          )}
                         </p>
                         <p className=" font-medium text-[0.85rem] text-violet pl-1">
-                          -19%
+                          -5%
                         </p>
                       </div>
                       <p className="text-[0.8rem] text-[#94a3b8] pl-1 ">

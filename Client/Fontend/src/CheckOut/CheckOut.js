@@ -32,6 +32,28 @@ export default function CheckOut() {
       }
     } catch (error) {}
     setDisable(false);
+        
+      // const hanldeGetDocCheckOut = async () => {
+      //   try {
+      //     const docRef = doc(db, "checkOut",  `${data.name}}`);
+      //     const docSnap = await getDoc(docRef);
+
+      //     if (docSnap.exists()) {
+      //       console.log("Document data:", docSnap.data());
+      //     } else {
+      //       console.log("No such document!");
+      //     }
+      //   } catch (error) {
+      //     if (error.message.includes("client is offline")) {
+      //       console.log(
+      //         "Client is offline. Please check your internet connection."
+      //       );
+      //     } else {
+      //       console.error("Error getting document:", error);
+      //     }
+      //   }
+      // };
+      // hanldeGetDocCheckOut();
   };
 
   return (

@@ -1,5 +1,4 @@
 import React from "react";
-
 import { IoMdArrowBack} from "react-icons/io";
 import { useState, useEffect } from "react";
 export default function BackTop() {
@@ -16,7 +15,6 @@ export default function BackTop() {
   const handleBackTop = () => {
     window.scrollTo({
       top: 0,
-
       behavior: "smooth",
     });
   };

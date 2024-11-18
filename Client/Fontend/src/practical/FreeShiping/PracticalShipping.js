@@ -14,8 +14,8 @@ import Outstandingprogram from "./Outstandingprogram";
 export default function PracticalShipping() {
   return (
     <div
-      className="  bg-gradient-to-br from-orange-400 to-yellow-400 
-            text-gray-900 rounded-lg shadow-m    relative   min-h-[7000px] w-full"
+      className="  bg-gradient-to-br from-orange-200 to-yellow-200 
+            text-gray-900 rounded-lg shadow-m   relative   min-h-[7000px] w-full"
     >
       <div className=" flex items-center ml-[158px] py-2">
         <Link to="/">
@@ -34,10 +34,10 @@ export default function PracticalShipping() {
         />
       </div>
       <div
-        className="flex  justify-center  sticky bg-gradient-to-br from-orange-400 to-yellow-400 
-            text-gray-900 rounded-lg shadow-m   top-[80px]   z-50   mb-10 "
+        className="flex  justify-center  sticky bg-gradient-to-br from-orange-200 to-yellow-300 
+            text-gray-900 rounded-lg shadow-m   top-[80px]   z-50   "
       >
-        <ul className="flex items-center mt-7  ">
+        <ul className="flex items-center mt-7 pb-5  ">
           <li className="flex items-center  flex-col   w-[60px] mx-14  rounded-full cursor-pointer">
             <a href="#freeshipping">
               <FaShippingFast className="text-[6rem] text-white   bg-teal-200 rounded-full w-[75px] h-[75px] px-[10px] py-[10px]" />
@@ -80,7 +80,7 @@ export default function PracticalShipping() {
           </li>
         </ul>
       </div>
-      <div className="z-0  flex justify-center">
+      <div className="z-0  flex justify-center scroll-smooth">
         <ul className="   mx-[160px] h-[100px]  " id="freeshipping">
           <li>
             <FreeShipping />

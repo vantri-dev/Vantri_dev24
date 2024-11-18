@@ -2,8 +2,8 @@ import Header from "./Header/header";
 import Footer from "./Footer/footer";
 import { useAuth } from "../../context/Context";
 function DefaultLayout({ children }) {
- const { isLoading } = useAuth();
- console.log(isLoading);
+  const { isLoading } = useAuth();
+  console.log(isLoading);
   return (
     <>
       <div className="w-full bg-f8fafc fixed top-0 border-b border-b-e2e8f0  px-40px  z-999  ">

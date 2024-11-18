@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import "firebase/compat/firestore"
+import { enableIndexedDbPersistence } from "firebase/firestore";
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://firebase.google.com/docs/web/learn-more#config-object
@@ -18,4 +19,11 @@ const  app = firebase.initializeApp (
 export const auth =app.auth()
 export const db = app.firestore()
 db.settings({ timestampsInSnapshots:true,merge: true});
+enableIndexedDbPersistence(db).catch((err) => {
+  if (err.code === "failed-precondition") {
+    console.log("Offline persistence failed because multiple tabs are open.");
+  } else if (err.code === "unimplemented") {
+    console.log("Offline persistence is not available in this browser.");
+  }
+});
 export default app

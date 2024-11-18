@@ -3,25 +3,29 @@
 import React, { useEffect, useState, useRef } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import Wrapper from "../components/Popper/Wrapper";
-import {  FaUserEdit } from "react-icons/fa";
+import { FaUserEdit } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { CiDiscount1 } from "react-icons/ci";
 import { MdLocalShipping, MdPayment } from "react-icons/md";
 import { useAuth } from "../context/Context";
-import {useNavigate} from 'react-router-dom'
-
+import { useNavigate } from "react-router-dom";
 export default function InforCheckOut() {
-  const {  cartProduct,priceProduct,getCheckOrder,checkOut } = useAuth();
+  const { cartProduct, getCheckOrder, checkOut, productId,direct } = useAuth();
+  console.log(productId);
+  console.log(direct);
   const toggleContainerPaypal = useRef();
   const toggleContainerPaypalSelect = useRef();
   const [checkDirect, setCheckdirect] = useState(true);
   const [hiddenPayPal, setHiddenPayPal] = useState(false);
   const [checkOutSuccess, setCheckOutSuccess] = useState(false);
   const [changeInputPaypal, setChangeInputPaypal] = useState(false);
-  
-   const [sumProduct,setSumProduct]=useState(0)
+
+  const [sumProduct, setSumProduct] = useState(0);
   const [error, setError] = useState(null);
-  const routerOrder = useNavigate()
+
+  const [caculateQuantityProduct, setCaculateQuantityProduct] = useState(0);
+
+  const routerOrder = useNavigate();
   const handleCheckDirect = () => {
     setCheckdirect(true);
   };
@@ -33,7 +37,8 @@ export default function InforCheckOut() {
   };
   const handlePaySelectChange = () => {
     setChangeInputPaypal(true);
-    if(changeInputPaypal){
+
+    if (changeInputPaypal) {
       setChangeInputPaypal(false);
     }
   };
@@ -53,14 +58,19 @@ export default function InforCheckOut() {
     };
   }, []);
 
+      const handleDiscountPercent = (price) => {
+        let findBeforeDiscount = price / (1 - 5 / 100);
+        return findBeforeDiscount;
+      };
+
+
   //Paypal
   const handlePayPaypal = () => {
     if (changeInputPaypal === true) {
       setHiddenPayPal(true);
     } else {
       setHiddenPayPal(false);
-      getCheckOrder(true,cartProduct)
-      routerOrder('/profile')
+
     }
   };
   const handleApprove = () => {
@@ -70,15 +80,16 @@ export default function InforCheckOut() {
     if (checkOutSuccess) {
       //thanh cong
       setHiddenPayPal(false);
+      getCheckOrder(true, cartProduct);
+      routerOrder("/profile");
     }
   }, [checkOutSuccess]);
-
   const onCreateOrder = (data, actions) => {
     return actions.order.create({
       purchase_units: [
         {
           amount: {
-            value: priceProduct === 0 ? handleOnError() : priceProduct,
+            value: 1 === 0 ? handleOnError() : 1,
           },
         },
       ],
@@ -86,8 +97,7 @@ export default function InforCheckOut() {
   };
 
   const onApproveOrder = (data, actions) => {
-    return actions.order.capture().then((details) => {
-
+    return actions.order.capture().then(() => {
       handleApprove(data.orderID);
     });
   };
@@ -108,11 +118,21 @@ export default function InforCheckOut() {
   };
 
   //Sum product
-   useEffect(()=>{
-    const handleSumProduct = priceProduct - 3
-    setSumProduct(handleSumProduct)
-   },[sumProduct])
-   console.log(checkOut)
+  useEffect(() => {
+    const handleSumProduct = caculateQuantityProduct + 50000;
+    setSumProduct(handleSumProduct);
+  }, [sumProduct]);
+  //Caculate
+  useEffect(() => {
+    const handleCaculatePrice = () => {
+      const calPrice = cartProduct.reduce((total, price) => {
+        return total + price.price;
+      }, 0);
+      setCaculateQuantityProduct(calPrice);
+    };
+    handleCaculatePrice();
+  }, [cartProduct]);
+
   return (
     <div className="grid grid-cols-6 gap-3  px-[105px] mt-[100px] ">
       <div
@@ -259,7 +279,6 @@ export default function InforCheckOut() {
                         id="1"
                         defaultChecked={true}
                         onChange={handlePaySelectChange}
-
                       />
                       Thanh toán khi nhận hàng
                     </span>
@@ -301,34 +320,47 @@ export default function InforCheckOut() {
             </span>
           </div>
           <div className="   max-h-[300px] overflow-x-hidden  overflow-scroll no-scrollbar ">
-            {
-              cartProduct.map((item,index)=>{
-                return (<div key={index} className="flex items-center    justify-items-end  px-2 w-full gap-2 py-4  ">
-                <div className="w-[50px] h-[50px]">
-                  <img
-                    src="https://media3.scdn.vn/img4/2022/11_18/eKh9c2zrReLhFgqPwa9n_simg_02d57e_50x50_maxb.jpg"
-                    alt=""
-                    className="w-[50px] h-[50px] "
-                  />
-                </div>
-                <div className="w-[90%]">
-                  <span className="text-[0.9rem] line-clamp-1   font-sans ">
-                   {item.body}
-                  </span>
-                  <div className="flex items-center   justify-between">
-                    <p className="text-[0.95rem] font-black   text-violet">
-            {item.id.toFixed(3)}
-                      <span className="px-1 text-[0.85rem] line-through text-[#828282] italic   font-light">
-                        9.00đ
-                      </span>
-                    </p>
-                    <span className="text-[0.95rem] font-black ">x1</span>
+            {cartProduct.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className="flex items-center    justify-items-end  px-2 w-full gap-2 py-4  "
+                >
+                  <div className="w-[50px] h-[50px]">
+                    <img
+                      src="https://media3.scdn.vn/img4/2022/11_18/eKh9c2zrReLhFgqPwa9n_simg_02d57e_50x50_maxb.jpg"
+                      alt=""
+                      className="w-[50px] h-[50px] "
+                    />
+                  </div>
+                  <div className="w-[90%]">
+                    <span className="text-[0.9rem] line-clamp-1   font-sans ">
+                      {item.nameProduct}
+                    </span>
+                    <div className="flex items-center   justify-between">
+                      <p className="text-[0.95rem] font-black   text-violet">
+                        {item.price.toLocaleString("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                          minimumFractionDigits: 0,
+                        })}
+                        <span className="px-1 text-[0.85rem] line-through text-[#828282] italic   font-light">
+                          {handleDiscountPercent(item.price).toLocaleString(
+                            "vi-VN",
+                            {
+                              style: "currency",
+                              currency: "VND",
+                              minimumFractionDigits: 0,
+                            }
+                          )}
+                        </span>
+                      </p>
+                      <span className="text-[0.95rem] font-black ">x1</span>
+                    </div>
                   </div>
                 </div>
-              </div>)
-              })
-            }
-            
+              );
+            })}
           </div>
           <div className="flex items-center justify-between   mx-1  py-1  pb-2">
             <div className="flex items-center ">
@@ -349,22 +381,34 @@ export default function InforCheckOut() {
               <div className="  border-b">
                 <div className="flex item-center justify-between py-1">
                   <p className="text-[#3f4b53] text-[1rem]">Tiền hàng</p>
-                  <p className="text-[0.95rem]  font-bold">{priceProduct.toFixed(3)}đ</p>
+                  <p className="text-[0.95rem]  font-bold">
+                    {caculateQuantityProduct.toLocaleString("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                      minimumFractionDigits: 0,
+                    })}
+                  </p>
                 </div>
 
                 <div className="flex item-center justify-between py-[2px]">
                   <p className="text-[#3f4b53] text-[1rem]">Tiền vận chuyển</p>
-                  <p className="text-[0.95rem]  font-bold">3.000đ</p>
+                  <p className="text-[0.95rem]  font-bold">50.000đ</p>
                 </div>
               </div>
 
               <div className="flex item-center justify-between py-1">
                 <p>Tổng thanh toán</p>
-                <p className="text-[0.95rem]  font-bold">{sumProduct.toFixed(3)}đ</p>
+                <p className="text-[0.95rem]  font-bold">
+                  {sumProduct.toLocaleString("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                    minimumFractionDigits: 0,
+                  })}
+                  
+                </p>
               </div>
               <button
-                  ref={toggleContainerPaypalSelect}
-
+                ref={toggleContainerPaypalSelect}
                 onClick={handlePayPaypal}
                 className=" cursor-pointer  relative inline-flex  w-full p-[1.75px] mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800"
               >

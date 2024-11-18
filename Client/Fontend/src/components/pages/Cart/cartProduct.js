@@ -7,36 +7,83 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiSolidDiscount } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../context/Context";
-
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { db } from "../../../firebase/firebase";
 const CartProduct = () => {
   const [heart, setHeart] = useState(false);
-  const { cartProduct, deleteProductCart, checkOut,getPriceProduct } = useAuth();
+  const {
+    cartProduct,
+    deleteProductCart,
+    checkOut,
+    getPriceProduct,
+    handleCheckOut,
+  } = useAuth();
   const [caculateQuantityProduct, setCaculateQuantityProduct] = useState(0);
-
+  const [quantityProduct, setQuantityProduct] = useState(1);
   const handleDeleteProduct = (id) => {
     deleteProductCart(id);
   };
-
-  useEffect(() => {
-    localStorage.setItem("productCart", JSON.stringify(cartProduct));
-  }, [cartProduct]);
 
   //Caculate
   useEffect(() => {
     const handleCaculatePrice = () => {
       const calPrice = cartProduct.reduce((total, price) => {
-        return total + price.id;
+        return total + price.price;
       }, 0);
-      setCaculateQuantityProduct(calPrice)
+      setCaculateQuantityProduct(calPrice);
     };
     handleCaculatePrice();
   }, [cartProduct]);
-  //CheckOut
 
-//Get Sum Price Product
-useEffect(()=>{
-  getPriceProduct(caculateQuantityProduct)
-},[caculateQuantityProduct]);
+  useEffect(() => {
+    getPriceProduct(caculateQuantityProduct);
+  }, [caculateQuantityProduct]);
+
+  useEffect(() => {
+    const hanldeGetDocCheckOut = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "checkOut"));
+        querySnapshot.forEach(async (data) => {
+          const docRef = doc(db, "checkOut", `${data.id}`);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            handleCheckOut(docSnap.data());
+          } else {
+            console.log("No such document!");
+          }
+        });
+      } catch (error) {
+        if (error.message.includes("client is offline")) {
+          console.log(
+            "Client is offline. Please check your internet connection."
+          );
+        } else {
+          console.error("Error getting document:", error);
+        }
+      }
+    };
+    hanldeGetDocCheckOut();
+  }, []);
+
+  const handleDiscountPercent = (price) => {
+    let findBeforeDiscount = price / (1 - 5 / 100);
+    return findBeforeDiscount;
+  };
+  const handleDiscountProduct = (nubProdudct) => {
+    console.log(nubProdudct)
+    if (nubProdudct <= 1) {
+      setQuantityProduct(1);
+    } else if (nubProdudct < 999) {
+      setQuantityProduct((prev) => prev - 1);
+    }
+  };
+  const handleIncreaseProduct = (nubProdudct) => {
+       if (nubProdudct < 0) {
+         setQuantityProduct(1);
+       } else if (nubProdudct < 999) {
+         setQuantityProduct((prev) => prev + 1);
+       }
+  };
   return (
     <div className="w-full pt-[10px]  bg-gray-100 pr-[100px]  pl-[90px] relative">
       <div className="w-full flex items-center">
@@ -84,7 +131,9 @@ useEffect(()=>{
                           Mua trước trả sau
                         </span>
                         <div className="">
-                          <span className="line-clamp-2 ">{item.body}</span>
+                          <span className="line-clamp-2 ">
+                            {item.nameProduct}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -100,18 +149,39 @@ useEffect(()=>{
                       <div className="  flex    justify-around  mt-[7.5%]">
                         <div className="text-center">
                           <p className="text-[1.3em] leading-3    font-sans  font-medium">
-                            {item.id.toFixed(3)}d
+                            {item.price.toLocaleString("vi-VN", {
+                              style: "currency",
+                              currency: "VND",
+                              minimumFractionDigits: 0,
+                            })}
                           </p>
                           <p className="text-[0.9rem]   text-slate-400  line-through">
-                            1.900d
+                            {handleDiscountPercent(item.price).toLocaleString(
+                              "vi-VN",
+                              {
+                                style: "currency",
+                                currency: "VND",
+                                minimumFractionDigits: 0,
+                              }
+                            )}
                           </p>
                         </div>
                         <ul className="flex  justify-between gap-2 border  cursor-pointer  ">
-                          <li className="px-2 text-[1.5rem]">-</li>
-                          <li className=" border-l border-r px-4 py-[5px] w-[46.5px]  font-bold">
-                            1
+                          <li
+                            className="px-2 text-[1.5rem]"
+                            onClick={() => handleDiscountProduct(item.quantity)}
+                          >
+                            -
                           </li>
-                          <li className="px-2 text-[1.5rem]">+</li>
+                          <li className=" border-l border-r px-4 py-[5px] w-[46.5px]  font-bold">
+                            {quantityProduct}
+                          </li>
+                          <li
+                            className="px-2 text-[1.5rem]"
+                            onClick={() => handleIncreaseProduct(item.quantity)}
+                          >
+                            +
+                          </li>
                         </ul>
                         <div className="flex  items-center gap-4  cursor-pointer">
                           {heart === true ? (
@@ -128,7 +198,7 @@ useEffect(()=>{
 
                           <RiDeleteBin6Line
                             className="text-[1.25rem]"
-                            onClick={() => handleDeleteProduct(item.id)}
+                            onClick={() => handleDeleteProduct(item._id)}
                           />
                         </div>
                       </div>
@@ -152,13 +222,19 @@ useEffect(()=>{
               <div className="flex items-center justify-between px-5 py-3">
                 <p className="text-[1.1rem] text-textword">Tạm tính:</p>
                 <p className="text-[1.3rem] font-sans font-bold">
-                  {caculateQuantityProduct.toFixed(3)}đ
+                  {caculateQuantityProduct.toLocaleString("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                    minimumFractionDigits: 0,
+                  })}
                 </p>
               </div>
               <div className=" flex items-center  justify-center">
                 <Link
                   to={
-                    Object.keys(checkOut).length === 0  ? "/checkOut" : "/inforCheckOut"
+                    Object.keys(checkOut).length === 0
+                      ? "/checkOut"
+                      : "/inforCheckOut"
                   }
                 >
                   <button className=" text-[1.15rem] border border-violet rounded py-3 px-[100px]  bg-violet text-white">

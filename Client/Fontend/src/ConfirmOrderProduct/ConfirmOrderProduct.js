@@ -84,12 +84,12 @@ export default function ConfirmOrderProduct() {
               <div className="px-2 flex items-center ">
                 <img
                   alt=""
-                  src="https://media3.scdn.vn/img4/2023/07_18/ueGqKop8naSTEyjyuZ0i_simg_de2fe0_500x500_maxb.jpg"
+                  src={item.image[0].image1}
                   className="w-[60px] h-[60px] bg-cover "
                 />
                 <div className="mx-2 w-[70%] ">
                   <span className="text-[0.9rem] font-black line-clamp-2">
-                    {item.body}
+                    {item.nameProduct}
                   </span>
                   <p className="text-[0.8rem] font-black">x1</p>
                 </div>
@@ -106,7 +106,12 @@ export default function ConfirmOrderProduct() {
                 <p className="text-[1rem] mt-2">
                   Thành tiền
                   <span className=" text-[violet]">
-                    :{item.id.toFixed(3)}d{" "}
+                    :
+                    {item.price.toLocaleString("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                      minimumFractionDigits: 0,
+                    })}
                   </span>
                 </p>
               </div>

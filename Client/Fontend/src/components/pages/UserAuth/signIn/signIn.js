@@ -53,7 +53,7 @@ function SignIn() {
 
   return (
     <div className="flex items-center mt-[2%]  ">
-      <div id="form">
+      <div id="form" >
         <div className=" ml-[18.4%] pb-[4%]">
           <Link to="/" className="flex items-center ">
             <IoIosArrowBack className="text-[1.3rem] text-[#ccc] " />

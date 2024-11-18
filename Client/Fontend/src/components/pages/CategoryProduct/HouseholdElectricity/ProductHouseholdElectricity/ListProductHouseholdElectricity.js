@@ -1,10 +1,10 @@
 import React, { createContext } from "react";
 
-import Pagination from "../../../../../Pagination/PaginationProduct";
+import Pagination from "../../../../../Pagination/PaginationHouseholdElectricity";
 import { useAuth } from "../../../../../context/Context";
 import { useState, useEffect } from "react";
-export const PagesContext = createContext();
-export default function ListProductPhone() {
+export const PageHouseholdElectricityContext = createContext();
+export default function ListProductHouseholdElectricity() {
   const [products, setProducts] = useState([]);
   const [offset, setOffset] = useState(0);
   const { filterProductCheckBox } = useAuth();
@@ -47,7 +47,7 @@ export default function ListProductPhone() {
     handlePageClick,
   };
   return (
-    <PagesContext.Provider value={value}>
+    <PageHouseholdElectricityContext.Provider value={value}>
       <div className="grid grid-cols-5 gap-3">
         {currentItems.map((product, index) => {
           return (
@@ -68,7 +68,7 @@ export default function ListProductPhone() {
                 <div className="w-full px-2 py-2 ">
                   <div className="">
                     <span className="text-[1.09rem] text-violet font-bold">
-                      {/* {product.id.toFixed(3)}đ   */}
+                      {product.id.toFixed(3)}đ
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
@@ -91,6 +91,6 @@ export default function ListProductPhone() {
         })}
       </div>
       <Pagination />
-    </PagesContext.Provider>
+    </PageHouseholdElectricityContext.Provider>
   );
 }

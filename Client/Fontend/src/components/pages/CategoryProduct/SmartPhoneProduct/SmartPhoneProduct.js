@@ -8,14 +8,14 @@ import logoXiaomi from "../../../img/xiaomi-33363.png";
 import logoOnePlus from '../../../img/oneplus1.png'
 
 import SliderSmartPhone from "./SliderSmartPhone";
-import ProductPhone from "./ProductPhone/ProductPhone";
+import ProductPhone from "../HouseholdElectricity/ProductHouseholdElectricity/ProductHouseholdElectricity";
 
 import { Link } from "react-router-dom";
 export default function SmartPhoneProduct() {
   const listPhoneCompany = [
     {
       name: "Apple",
-        path:'/brandphone',
+      path: "/brandphone",
       imgPhone:
         "https://tse1.mm.bing.net/th?id=OIP.cvc49N1K37yrn0biV30vBAHaIw&pid=Api&P=0&h=180",
       logo: logoApple,
@@ -23,7 +23,7 @@ export default function SmartPhoneProduct() {
     {
       name: "Samsung",
       imgPhone:
-        "https://media.pakprice.pk/288/otRdSrGmyr0jk9jpGFsDSevTiJBtoaK81UGAljcV.jpeg",
+        "https://tse1.mm.bing.net/th?id=OIP.nZkvNj94b4iq6-SEEox4HAHaE8&pid=Api&P=0&h=180",
       logo: logoSamsung,
     },
     {
@@ -39,13 +39,13 @@ export default function SmartPhoneProduct() {
 
       imgPhone:
         "https://cdn.mobilecity.vn/mobilecity-vn/images/2023/04/w300/xiaomi-black-shark-3-xam.jpg.webp",
-        logo:logoXiaomi
+      logo: logoXiaomi,
     },
     {
       name: "Oneplus",
       imgPhone:
         "https://tse4.mm.bing.net/th?id=OIP.XwCShkbcabZKvq2FSfryBgHaHa&pid=Api&P=0&h=180",
-        logo: logoOnePlus,
+      logo: logoOnePlus,
     },
   ];
   return (
@@ -108,7 +108,6 @@ export default function SmartPhoneProduct() {
         </ul>
       </div>
       <ProductPhone/>
-
     </div>
   );
 }

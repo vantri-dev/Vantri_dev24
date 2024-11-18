@@ -40,16 +40,20 @@ export function Context({ children }) {
   const [checkOut, setCheckOut] = useState([]);
   //Get Price Product
   const [priceProduct, setPriceProduct] = useState(0);
-//Check Order Product
-  const [checkOrderProduct,setCheckOrderProduct]=useState(false);
-  const [dataProductOrder,setDataProductOrder]=useState([]);
-//Quantity Product
-const [quantityProduct, setQuantityProduct] = useState(0)
-//Check Buy Product
-const [checkBuyId,setCheckBuyId]=useState(false);
-//Is Loading
-const [isLoading,setIsLoading]=useState(null)
-
+  //Check Order Product
+  const [checkOrderProduct, setCheckOrderProduct] = useState(false);
+  const [dataProductOrder, setDataProductOrder] = useState([]);
+  //Quantity Product
+  const [quantityProduct, setQuantityProduct] = useState(0);
+  //Check Buy Product
+  const [checkBuyId, setCheckBuyId] = useState(false);
+  //Is Loading
+  const [isLoading, setIsLoading] = useState(null);
+  //Check Success Order
+  const [checkSuccessOrder, setCheckSuccessOrder] = useState(false);
+  //Get Filter Product
+  const [filterProductCheckBox, setFilterProductCheckBox] = useState([])
+  const [setDirectadd, direct] = useState(false);
   function signUp(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
   }
@@ -128,21 +132,32 @@ const [isLoading,setIsLoading]=useState(null)
   function getPriceProduct(data) {
     setPriceProduct(data);
   }
-//Check Order Product
- function getCheckOrder(isCheck,dataProduct){
-  setCheckOrderProduct(isCheck)
-  setDataProductOrder(dataProduct)
- }
- function quantityProductOrder(quantity){
-  setQuantityProduct(quantity)
- } 
- function checkBuyProductId(check){
-setCheckBuyId(check)
- }
-function isLoadingData(bool){
-setIsLoading(bool)
- }
 
+  //Check Order Product
+  function getCheckOrder(isCheck, dataProduct) {
+    setCheckOrderProduct(isCheck);
+    setDataProductOrder(dataProduct);
+  }
+  function quantityProductOrder(quantity) {
+    setQuantityProduct(quantity);
+  }
+  function checkBuyProductId(check) {
+    setCheckBuyId(check);
+  }
+  function isLoadingData(bool) {
+    setIsLoading(bool);
+  }
+  function isCheckSuccess(check) {
+    setCheckSuccessOrder(check);
+  }
+
+  function directAddProduct(isDirect) {
+    setDirectadd(isDirect);
+  }
+  function handleGetCheckFilterProduct(product){
+    setFilterProductCheckBox(product);
+  }
+  console.log(filterProductCheckBox)
   const value = {
     //Auth
     currentUser,
@@ -194,6 +209,14 @@ setIsLoading(bool)
     //Loading Data
     isLoadingData,
     isLoading,
+    //Check success
+    isCheckSuccess,
+    checkSuccessOrder,
+    directAddProduct,
+    direct,
+    //Get Checkbox Filter
+    handleGetCheckFilterProduct,
+    filterProductCheckBox
   };
   return (
     <AuthProvider.Provider value={value}>

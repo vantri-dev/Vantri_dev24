@@ -4,10 +4,11 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useAuth } from "./context/Context";
 export default function CountDown() {
+  const { CountDown } = useAuth();
   const [timerHours, setTimerHours] = useState("00");
   const [timerMinutes, setTimerMinutes] = useState("00");
   const [timerSeconds, setTimerSeconds] = useState("00");
-  const { CountDown } = useAuth();
+
 
   useEffect(() => {
     const DateTimer = new Date(CountDown()).getTime();

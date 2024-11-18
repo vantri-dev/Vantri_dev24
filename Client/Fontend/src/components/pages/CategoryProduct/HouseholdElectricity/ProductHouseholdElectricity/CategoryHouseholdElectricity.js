@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { apiProductFake } from "../../../../../callApi";
 import { useAuth } from "../../../../../context/Context";
-export default function CategoryPhone() {
+export default function CategoryHouseholdElectricity() {
   const [products, setProducts] = useState([]);
   const [filterCheck, setFilterCheck] = useState([]);
   const { handleGetCheckFilterProduct } = useAuth();
-  const [valuecheckWhere, setValueCheckWhereToBuy] = useState('');
-  const [valuecheckShip, setvalueCheckShip] = useState('');
+  const [valuecheckWhere, setValueCheckWhereToBuy] = useState("");
+  const [valuecheckShip, setvalueCheckShip] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       apiProductFake().then((data) => {
@@ -24,29 +24,31 @@ export default function CategoryPhone() {
     setValueCheckWhereToBuy(e.target.value);
   };
   const handleGetCheckShip = (e) => {
-   setvalueCheckShip(e.target.value)
+    setvalueCheckShip(e.target.value);
   };
-  const filterProduct = ()=>{
- if (valuecheckShip || setValueCheckWhereToBuy) {
-   const getFilterCheck = products.filter((product) => {
-     const filterNameProduct = product.name
-       .toLowerCase()
-       .includes(valuecheckShip.toLowerCase());
-     const filterWhereToBuy =
-       product.email.toLowerCase().includes(valuecheckWhere.toLowerCase()) ||
-       valuecheckWhere === "";
-     return filterNameProduct && filterWhereToBuy;
-   });
-   console.log(getFilterCheck);
-   if (getFilterCheck.length > 0) {
-     const count = getFilterCheck.filter((item) => item.email.includes(".ca"));
-     console.log(count);
-   }
-   setFilterCheck(() => [...getFilterCheck]);
- } else {
-   setFilterCheck(products);
- }
-  }
+  const filterProduct = () => {
+    if (valuecheckShip || setValueCheckWhereToBuy) {
+      const getFilterCheck = products.filter((product) => {
+        const filterNameProduct = product.name
+          .toLowerCase()
+          .includes(valuecheckShip.toLowerCase());
+        const filterWhereToBuy =
+          product.email.toLowerCase().includes(valuecheckWhere.toLowerCase()) ||
+          valuecheckWhere === "";
+        return filterNameProduct && filterWhereToBuy;
+      });
+      console.log(getFilterCheck);
+      if (getFilterCheck.length > 0) {
+        const count = getFilterCheck.filter((item) =>
+          item.email.includes(".ca")
+        );
+        console.log(count);
+      }
+      setFilterCheck(() => [...getFilterCheck]);
+    } else {
+      setFilterCheck(products);
+    }
+  };
   useEffect(() => {
     filterProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,31 +77,31 @@ export default function CategoryPhone() {
               onChange={handleGetCheckShip}
             />
             <label htmlFor="" className="ml-2 text-textword text-[1.05rem]">
-              Apple
+              Máy hút mùi
             </label>
           </div>
           <div className="flex items-center justify-start pl-5 py-2 hover:bg-slate-100  rounded">
             <input type="checkbox" />
             <label htmlFor="" className="ml-2 text-textword text-[1.05rem]">
-              Samsung
+              Bếp các loại
             </label>
           </div>
           <div className="flex items-center justify-start pl-5 py-2 hover:bg-slate-100  rounded">
             <input type="checkbox" />
             <label htmlFor="" className="ml-2 text-textword text-[1.05rem] ">
-              Realme
+            Máy làm kem
             </label>
           </div>
           <div className="flex items-center justify-start pl-5 py-2 hover:bg-slate-100  rounded">
             <input type="checkbox" />
             <label htmlFor="" className="ml-2 text-textword text-[1.05rem]">
-              Oneplus
+              Máy đánh trứng
             </label>
           </div>
           <div className="flex items-center justify-start pl-5 py-2 hover:bg-slate-100  rounded">
             <input type="checkbox" />
             <label htmlFor="" className="ml-2 text-textword text-[1.05rem]">
-              Xiaomi
+           Lò vi sóng
             </label>
           </div>
         </li>

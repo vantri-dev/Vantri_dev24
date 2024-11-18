@@ -8,6 +8,7 @@ export default function ListFilterProductPhone() {
   const { filterProduct } = useAuth();
   const [products, setProducts] = useState([]);
   const [offset, setOffset] = useState(0);
+
   const itemsPerPage = 20;
   useEffect(() => {
     const dataProducts = async () => {
@@ -24,10 +25,14 @@ export default function ListFilterProductPhone() {
     const newOffset = (e.selected * itemsPerPage) % products.length;
     setOffset(newOffset);
   };
+
   return (
     <>
       <div className="grid grid-cols-5 gap-3 mt-[20px] ">
         {currentItems.map((product, index) => {
+          console.log(product
+
+          )
           return (
             <div key={index} className=" col-span-1  w-full max-h-[540px] ">
               <Link to={`/productpage/${product.id}`}>
@@ -36,18 +41,22 @@ export default function ListFilterProductPhone() {
                     <img
                       className="w-[200px] h-[230px] flex  m-auto border"
                       alt=""
-                      src="https://salt.tikicdn.com/cache/280x280/ts/product/e2/79/3a/99fb3f8dd32c331e6535e5aae5d51f98.jpg.webp"
+                      src={product.image[0].image1}
                     />
                   </div>
                   <div className=" w-full my-3 px-2 ">
                     <p className="  line-clamp-2   text-textword font-medium text-[0.95rem]  ">
-                      {product.name}
+                      {product.nameProduct}
                     </p>
                   </div>
                   <div className="w-full px-2 py-2 ">
                     <div className="">
                       <span className="text-[1.09rem] text-violet font-bold">
-                        {product.id.toFixed(3)}đ
+                        {product.price.toLocaleString("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                          minimumFractionDigits: 0,
+                        })}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">

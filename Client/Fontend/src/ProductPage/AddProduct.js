@@ -44,7 +44,7 @@ export const AddProduct = (props) => {
 
       {isRouter === true && isRouterCheckOut === true ? (
         <button
-          onClick={() => AddProductCart()}
+          onClick={() => AddProductCart(1)}
           className="flex items-center text-[1.15rem] border border-violet rounded py-3 px-[70px]  bg-violet text-white"
         >
           Mua ngay

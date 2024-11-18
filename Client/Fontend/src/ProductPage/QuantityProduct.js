@@ -1,10 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
+import { useState, useEffect } from "react";
+import { apiProduct } from "../callApi";
+export default function QuantityProduct(props) {
+  const {idProduct} =props
+  const [quantityProduct, setQuantityProduct] = useState(null || 1);
+    useEffect(() => {
+      const handleGetInfor = async () => {
+        try {
+          const products = await apiProduct();
+          const dataIdProduct = products.find(
+            (product) => product._id === idProduct
+          )
+         setQuantityProduct(dataIdProduct.quantity)
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      handleGetInfor();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-import { useState } from "react";
-
-export default function QuantityProduct() {
-  const [quantityProduct, setQuantityProduct] = useState(1);
   const IncreaseProduct = () => {
     if (quantityProduct < 0) {
       setQuantityProduct(1);

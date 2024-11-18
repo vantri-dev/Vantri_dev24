@@ -1,9 +1,10 @@
 import cartEmty from "../../img/cartEmty.png";
 
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect  } from "react";
 import ConfirmOrderProduct from "../../../ConfirmOrderProduct/ConfirmOrderProduct";
 import { useAuth } from "../../../context/Context";
+import { db } from "../../../firebase/firebase";
 export default function Order() {
   const listOrder = [
     "Chờ xác nhận",
@@ -12,8 +13,27 @@ export default function Order() {
     "Đã giao",
     "Đã hủy",
   ];
-  const {quantityProduct } = useAuth();
+  const {  checkOrderProduct } = useAuth();
   const [tabs, setTabs] = useState(0);
+  const [data,setData]=useState([])
+   useEffect(() => {
+     db.collection("order")
+       .get()
+       .then((querySnapshot) => {
+         const newOrderData = [];
+         querySnapshot.forEach((doc) => {
+           // Sử dụng ID của tài liệu làm key duy nhất
+           const id = doc.id;
+           const data = doc.data();
+           newOrderData.push({ id, ...data });
+         });
+         // Cập nhật dữ liệu với keys duy nhất
+         setData(newOrderData);
+       })
+       .catch((error) => {
+         console.log("Error getting documents: ", error);
+       });
+   }, []);
   return (
     <div className=" w-full h-screen ">
       <div className="w-full   bg-gray-100 rounded">
@@ -33,10 +53,6 @@ export default function Order() {
                   }
                 >
                   {item}
-                  {
-                    tabs===index ? <span>({quantityProduct})</span> :<></>
-                  }
-                 
                 </span>
               </div>
             );
@@ -44,16 +60,16 @@ export default function Order() {
         </nav>
         <ul>
           <li
-            className={ 
+            className={
               tabs === 0
                 ? "block w-full max-h-[600px]   overflow-x-hidden  overflow-scroll no-scrollbar "
                 : "hidden"
             }
           >
-            {/* { dataProductOrder  || undefined ? ( */}
+            {checkOrderProduct === true || data.length > 0 ? (
               <ConfirmOrderProduct />
-            {/* ) : ( */}
-              {/* <div className="flex items-center">
+            ) : (
+              <div className="flex items-center">
                 <div className=" m-auto pt-[5%]">
                   <img
                     src={cartEmty}
@@ -65,7 +81,7 @@ export default function Order() {
                   </span>
                 </div>
               </div>
-            )} */}
+            )}
           </li>
           <li className={tabs === 1 ? "block" : "hidden"}>
             <div className="flex items-center">

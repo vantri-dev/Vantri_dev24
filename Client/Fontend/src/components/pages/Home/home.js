@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Link } from "react-router-dom";
-import { useEffect,useState } from "react";
+import { useEffect } from "react";
 import Slider from "../../Slider/Slider";
 import Translation from "./Translation";
 import FlashSale from "./FlashSale";
@@ -29,15 +29,17 @@ function Home() {
     {
       name: "Điện thoại",
       pathImg: "https://cdn-icons-png.flaticon.com/128/7344/7344131.png",
-      pathPage:'/productSmartPhone'
+      pathPage: "/productSmartPhone",
     },
     {
       name: "Nhà sách ",
       pathImg: "https://cdn-icons-png.flaticon.com/128/4033/4033473.png",
+      pathPage: "/bookProduct ",
     },
     {
       name: "Điện gia dụng",
       pathImg: "https://img.icons8.com/?size=1x&id=cPvUGpqA1Dmh&format=png",
+      pathPage: "/householdElectricity ",
     },
     {
       name: "Bách hóa online",
@@ -53,7 +55,8 @@ function Home() {
     },
     {
       name: "Thời trang ",
-      pathImg: "https://cdn-icons-png.flaticon.com/128/7681/7681178.png?ga=GA1.1.211905827.1690876736",
+      pathImg:
+        "https://cdn-icons-png.flaticon.com/128/7681/7681178.png?ga=GA1.1.211905827.1690876736",
     },
     {
       name: "Máy tính",

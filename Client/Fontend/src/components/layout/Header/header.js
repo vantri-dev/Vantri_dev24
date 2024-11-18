@@ -191,7 +191,7 @@ useEffect(()=>{
                 ) : (
                   <Link className="flex items-center">
                     <AiOutlineUser className="text-[1.8rem] text-[#64748b] sm:hidden smm:hidden" />
-                    <span className="px-7px pt-4px mr-3 text-textword  sm:hidden smm:hidden">
+                    <span className="px-7px pt-4px  text-textword  sm:hidden smm:hidden">
                       Tài Khoản
                     </span>
                   </Link>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { apiProductFake } from "../../../../../callApi";
 import { useAuth } from "../../../../../context/Context";
-export default function CategoryPhone() {
+export default function CategoryBook() {
   const [products, setProducts] = useState([]);
   const [filterCheck, setFilterCheck] = useState([]);
   const { handleGetCheckFilterProduct } = useAuth();
@@ -37,7 +37,6 @@ export default function CategoryPhone() {
        valuecheckWhere === "";
      return filterNameProduct && filterWhereToBuy;
    });
-   console.log(getFilterCheck);
    if (getFilterCheck.length > 0) {
      const count = getFilterCheck.filter((item) => item.email.includes(".ca"));
      console.log(count);
@@ -66,7 +65,7 @@ export default function CategoryPhone() {
 
       <ul className="flex flex-col items-start justify-start">
         <li className="w-full  pl-4 py-5 cursor-pointer">
-          <span className="text-[1rem]   font-black">Thương hiệu</span>
+          <span className="text-[1rem]   font-black">Thể loại</span>
           <div className="flex items-center justify-start pl-5 py-2 hover:bg-slate-100  rounded">
             <input
               type="checkbox"
@@ -75,31 +74,31 @@ export default function CategoryPhone() {
               onChange={handleGetCheckShip}
             />
             <label htmlFor="" className="ml-2 text-textword text-[1.05rem]">
-              Apple
+              Tiểu thuyết
             </label>
           </div>
           <div className="flex items-center justify-start pl-5 py-2 hover:bg-slate-100  rounded">
             <input type="checkbox" />
             <label htmlFor="" className="ml-2 text-textword text-[1.05rem]">
-              Samsung
+              Ngôn tình
             </label>
           </div>
           <div className="flex items-center justify-start pl-5 py-2 hover:bg-slate-100  rounded">
             <input type="checkbox" />
             <label htmlFor="" className="ml-2 text-textword text-[1.05rem] ">
-              Realme
+              Kinh tế
             </label>
           </div>
           <div className="flex items-center justify-start pl-5 py-2 hover:bg-slate-100  rounded">
             <input type="checkbox" />
             <label htmlFor="" className="ml-2 text-textword text-[1.05rem]">
-              Oneplus
+              Kỹ năng sống
             </label>
           </div>
           <div className="flex items-center justify-start pl-5 py-2 hover:bg-slate-100  rounded">
             <input type="checkbox" />
             <label htmlFor="" className="ml-2 text-textword text-[1.05rem]">
-              Xiaomi
+            Du Ký
             </label>
           </div>
         </li>

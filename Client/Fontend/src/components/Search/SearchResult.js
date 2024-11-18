@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/Context";
 import Wrapper from "../Popper/Wrapper";
 import useDebounce from "../hooks/useDebounnce";
-
+import axios from "axios";
 function SearchResult() {
   const [searchResult, setsearchResult] = useState([]);
   const [dataProduct, setdataProduct] = useState([]);
@@ -19,7 +19,7 @@ function SearchResult() {
   const handleSearch = (e) => {
     setvalueInput(e.target.value);
     let newResult = dataProduct.filter((value) => {
-      return value.name.toLowerCase().includes(valueInput);
+      return value.nameProduct.toLowerCase().includes(valueInput);
     });
     setsearchResult(newResult);
     if (valueInput === "") {
@@ -34,10 +34,8 @@ function SearchResult() {
       return;
     }
     const fetchApi = async () => {
-      const getApi = await fetch(
-        "https://jsonplaceholder.typicode.com/comments"
-      );
-      const data = await await getApi.json();
+       const response = await axios.get("http://localhost:3001/product");
+      const data = response.data.data.products;
       setdataProduct(data);
     };
     fetchApi();
@@ -117,7 +115,7 @@ function SearchResult() {
                             <AiOutlineSearch />
                           </div>
                           <span className=" text-17 font-normal pl-7px">
-                            {result.name}
+                            {result.nameProduct}
                           </span>
                         </div>
                       </Link>

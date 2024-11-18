@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import { BsChevronRight } from "react-icons/bs";
 import { BsCheckLg } from "react-icons/bs";
 import { FaRegFaceSadTear } from "react-icons/fa6";
 import ImageProduct from "./ImageProduct";
-import { InformationProduct } from "./InformationProduct";
+import InformationProduct from "./InformationProduct";
 import { Link } from "react-router-dom";
 import DealProduct from "./DealProduct";
 import ShopProduct from "./ShopProduct";
@@ -14,32 +15,45 @@ import DescriptionProduct from "./DescriptionProduct";
 import CommentPage from "./Comment/CommentPage";
 import { useAuth } from "../context/Context";
 import AddProduct from "./AddProduct";
+import { useNavigate } from "react-router-dom";
 export default function ProductPage() {
-  const [productId, setProductId] = useState([]);
+  const [productId, setProductId] = useState({});
   const [products, setProducts] = useState([]);
-  const { handleProductCurrent, handleAddCart ,handleGetProductId,checkBuyProductId} = useAuth();
+  const {
+    handleProductCurrent,
+    handleAddCart,
+    handleGetProductId,
+    checkBuyProductId,
+    directAddProduct,
+  } = useAuth();
   const [hiddenSuccess, setHiddenSuccess] = useState(false);
   const [hiddenError, setHiddenError] = useState(false);
-  
   const cartLocalStorage = JSON.parse(
     localStorage.getItem("productCart" || [])
   );
-  const [productCart, setProductCart] = useState(cartLocalStorage);   
+  const [productCart, setProductCart] = useState(cartLocalStorage);
   const param = useParams();
   const idProduct = param.idProduct;
+  const isRouterOrder = useNavigate();
   useEffect(() => {
     const dataProducts = async () => {
-      const repApi = await fetch("https://jsonplaceholder.typicode.com/posts");
-      const data = await repApi.json();
-      setProducts(data);
+      try {
+        const response = await axios.get("http://localhost:3001/product");
+        const dataRes = response.data.data.products;
+        setProducts(dataRes);
+      } catch (error) {
+        if (!error.response) {
+          console.error("Error response:", error.response);
+        } else {
+          console.error("Network error:", error);
+        }
+      }
     };
     dataProducts();
   }, []);
 
   const handleProductId = () => {
-    const dataIdProduct = products.find(
-      (product) => product.id === Number(idProduct)
-    );
+    const dataIdProduct = products.find((product) => product._id === idProduct);
     if (dataIdProduct) {
       setProductId({ ...dataIdProduct });
     }
@@ -47,31 +61,34 @@ export default function ProductPage() {
   useEffect(() => {
     handleProductId();
     handleProductCurrent(productId);
-    checkBuyProductId(idProduct)
+    checkBuyProductId(idProduct);
   }, [products]);
 
-  const AddProductCart = () => {
+  const AddProductCart = (option) => {
     try {
-        const indexCart = productCart.find((item) => item.id === productId.id);
-        if (productId.id >= 0) {
-          const newProductCart = {
-            ...productId,
-          };
-          handleGetProductId(newProductCart)
-          if (indexCart) {
-            const existingItem = productCart.map((item) => {
-              if (item.id === productId.id) {
-                return { ...newProductCart, quantity: 2 };
-              } else {
-                return item;
-              } 
-            });
-            setProductCart(existingItem);
-          } else {
-            setProductCart([...productCart, { ...newProductCart, quantity: 1 }]);
-          }
+      const indexCart = productCart.find((item) => item._id === productId._id);
+      if (productId._id) {
+        const newProductCart = {
+          ...productId,
+        };
+        handleGetProductId(newProductCart);
+        if (indexCart) {
+          const existingItem = productCart.map((item) => {
+            if (item._id === productId._id) {
+              return { ...newProductCart };
+            } else {
+              return item;
+            }
+          });
+          setProductCart(existingItem);
+        } else {
+          setProductCart([...productCart, { ...newProductCart }]);
+        }
+        if (option === 1) {
+          isRouterOrder("/inforCheckOut");
+          setHiddenSuccess(false);
+        }
         setHiddenSuccess(true);
-        
       } else {
         setHiddenError(true);
       }
@@ -106,9 +123,9 @@ export default function ProductPage() {
           </Link>
         </div>
         <div className=" grid grid-cols-3 bg-white ">
-          <ImageProduct />
+          <ImageProduct idProduct={idProduct} />
           <div className="col-span-2">
-            <InformationProduct />
+            <InformationProduct idProduct={idProduct} />
             <AddProduct AddProductCart={AddProductCart} />
             <div
               className={
@@ -175,8 +192,7 @@ export default function ProductPage() {
       <div className="w-full mt-[10px]   bg-gray-100 px-[105px] ">
         <ShopProduct />
         <DetailProduct id={idProduct} />
-
-        <DescriptionProduct productId={productId} />
+        <DescriptionProduct idProduct={idProduct} />
         <CommentPage />
       </div>
     </div>
