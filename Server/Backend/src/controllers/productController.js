@@ -30,8 +30,6 @@ exports.handleGetAllProduct = async (req, res, next) => {
     const queryObj = JSON.parse(queryStr);
     const products = await Product.find(queryObj)
       .populate("detailsproducts")
-      .populate("ratingcomments");
-
     res.status(StatusCodes.OK).json({
       status: "Success",
       lengthProduct: products.length,
@@ -51,7 +49,6 @@ exports.handleGetProduct = async (req, res, next) => {
   try {
     const product = await Product.findOne({ _id: req.params.id })
       .populate("detailsproducts")
-      .populate("ratingcomments");
     res.status(StatusCodes.OK).json({
       status: "Success",
       data: {

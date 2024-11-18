@@ -1960,6 +1960,11 @@ fs.realpath@^1.0.0:
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
 
+fsevents@~2.3.2:
+  version "2.3.2"
+  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
+
 function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
@@ -3046,6 +3051,21 @@ shebang-regex@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
+
+"shopteach@file:":
+  version "1.0.0"
+  resolved "file:"
+  dependencies:
+    "@babel/runtime" "^7.22.10"
+    async-exit-hook "^2.0.1"
+    cors "^2.8.5"
+    dotenv "^16.4.5"
+    express "^4.18.2"
+    http-status-codes "^2.3.0"
+    mongoose "^8.4.0"
+    mongoose-validator "^2.1.0"
+    shopteach "file:"
+    slug "^9.1.0"
 
 side-channel@^1.0.4:
   version "1.0.4"

@@ -53,6 +53,7 @@ const productSchema = new Schema(
     option: {
       color: [String],
       cap: [Number],
+      size:[Number]
     },
 
     quantity: {
@@ -61,21 +62,33 @@ const productSchema = new Schema(
       min: [1, "Quantity must  be 1 or above!"],
       max: [1000000, "Quantity must not  be 1000000 or less!"],
     },
-    image: [String],
+    checkOrder: {
+      type: Boolean,
+    },
+    image: [
+      {
+        image1: String,
+        image2: String,
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 productSchema.set("toObject", { virtuals: true });
-productSchema.set("toJSON", { virtuals: true });
+productSchema.set("toJSON", {
+  virtuals: true,
+  transform: function (doc, ret) {
+    ret.image.forEach((imgObj) => {
+      delete imgObj._id;
+      delete imgObj.id;
+    });
+    return ret;
+  },
+});
 productSchema.virtual("detailsproducts", {
   ref: "DetailsProducts",
-  localField: "_id",
-  foreignField: "_idProduct",
-});
-productSchema.virtual("ratingcomments", {
-  ref: "RatingComments",
   localField: "_id",
   foreignField: "_idProduct",
 });

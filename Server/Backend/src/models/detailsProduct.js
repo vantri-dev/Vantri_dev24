@@ -15,7 +15,7 @@ const detailsProductSchema = new Schema(
       trim: true,
     },
     genuine: {
-      type: String,
+      type: Boolean,
       bool: Boolean,
       trim: true,
     },
@@ -27,13 +27,25 @@ const detailsProductSchema = new Schema(
     },
     content: {
       description: {
-        require: [true, "Content product require"],
-        type: String,
-        minlength: [10, "SentFrom require must more than 100 characters!"],
-      },
-      img: [String],
-      linkDescription: {
-        type: String,
+        p1: {
+          require: [true, "Content product require"],
+          type: String,
+          minlength: [10, "SentFrom require must more than 100 characters!"],
+        },
+        p2: {
+          require: [true, "Content product require"],
+          type: String,
+          minlength: [10, "SentFrom require must more than 100 characters!"],
+        },
+        p3: {
+          require: [true, "Content product require"],
+          type: String,
+          minlength: [10, "SentFrom require must more than 100 characters!"],
+        },
+        linkDescription: {
+          type: String,
+        },
+        img: [String],
       },
     },
     _idProduct: {
